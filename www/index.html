@@ -1,0 +1,465 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    // Page init event
+    document.addEventListener('init', function(event) {
+      var page = event.target;
+
+    // 一字決まり札を覚えよう！から2ページ目
+
+      if (page.matches('#first-page')) {
+        page.querySelector('#push-button').onclick = function() {
+          document.querySelector('#navigator').pushPage('page2.html');
+        };
+
+      } else if (page.matches('#second-page')) {
+        page.querySelector('#pop-button').onclick = function() {
+          document.querySelector('#navigator').popPage();
+        };
+      }
+
+// クイズボタンからクイズページへ
+
+      if (page.matches('#first-page')) {
+        page.querySelector('#push-button3').onclick = function() {
+        document.querySelector('#navigator').pushPage('pageA.html');
+        };
+
+      } else if (page.matches('#A-page')) {
+        page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+        };
+      
+
+      // クイズのscriptコード
+
+      const question = document.getElementById("question");
+      const choices = document.getElementById("choices");
+      const btn = document.getElementById("btn");
+      const result = document.getElementById("result");
+      const scoreLabel = document.querySelector("#result > p");
+
+      const quizSet = shuffle([
+        {q: "むらさめの つゆもまだひぬ まきのはに", c: ["ゆめのかようぢ ひとめよくらむ", "きりたちのぼる あきのゆふぐれ", "われてもすゑに あはむとぞおもふ"]},
+        {q: "めぐりあひて みしやそれとも わかぬまに", c: ["ただありあけの つきぞのこれる", "くもがくれにし よはのつきかな", "むべやまかぜを あらしといふらむ"]},
+        {q: "さびしさに やどをたちいでて ながむれば", c: ["われてもすゑに あわむとぞおもう", "いづこもおなじ あきのゆふぐれ", "くもがくれにし よはのつきかな"]},
+        {q: "ふくからに あきのくさきを しをるべば", c: ["ゆめのかようぢ ひとめよくらむ", "むべやまかぜを あらしといふらむ", "きりたちのぼる あきのゆふぐれ"]},
+        {q: "ほととぎす なきつるかたを ながむれば", c: ["われてもすゑ あはむとぞおもふ", "ただありあけの つきぞのこれる", "いづこもおなじ あきのゆふぐれ"]},
+        {q: "せをはやみ いはにせかるる たきがはの", c: ["ただありあけの つきぞのこれる", "われてもすゑ あはむとぞおもふ", "ゆめのかようぢ ひとめよくらむ"]},
+        {q: "すみのえの きしによるなみ よるさへや", c: ["われてもすゑ あはむとぞおもふ", "ゆめのかようぢ ひとめよくらむ", "きりたちのぼる あきのゆふぐれ"]},
+      ]);
+      let currentNum = 0;
+      let isAnswered;
+      let score = 0;
+
+      
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[j], arr[i]] = [arr[i], arr[j]];            //分割代入
+        }
+        return arr;
+      }
+
+      function checkAnswer(li) {
+        if (isAnswered) {
+          return;
+        }
+        isAnswered = true;
+
+        if (li.textContent === quizSet[currentNum].c[1]) {
+          li.classList.add("correct");
+          score++;
+        }else {
+          li.classList.add("wrong");
+        }
+
+        btn.classList.remove("disabled");
+      }
+
+      function setQuiz() {
+        isAnswered = false;
+
+        question.textContent = quizSet[currentNum].q;
+
+        while(choices.firstChild) {
+          choices.removeChild(choices.firstChild);
+        }
+
+      const shuffledChoices = shuffle([...quizSet[currentNum].c]);
+      shuffledChoices.forEach(choice => {
+        const li = document.createElement("li");
+        li.textContent = choice;
+        li.addEventListener("click", () => {
+          checkAnswer(li);
+        });
+        choices.appendChild(li);
+      });
+
+      if (currentNum === quizSet.length - 1) {
+        btn.textContent = "Show Score";
+
+      }
+      }
+
+      setQuiz();
+
+      btn.addEventListener("click", () => {
+        if (btn.classList.contains("disabled")) {
+          return;
+        }
+        btn.classList.add("disabled");
+
+        if (currentNum === quizSet.length - 1) {
+          // console.log(`Score: ${score} / ${quizSet.length}`);
+          scoreLabel.textContent = `Score: ${score} / ${quizSet.length}`;
+          result.classList.remove("hidden");
+        }else {
+          currentNum++;
+          setQuiz();
+        }
+      });
+
+      }
+    
+    
+    
+
+
+// page 2 から page 3 
+
+    if (page.matches('#second-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page3.html');
+      };
+
+    } else if (page.matches('#third-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+      };
+    }
+
+// page 3 から page 4 へ
+
+    if (page.matches('#third-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page4.html');
+      };
+
+    } else if (page.matches('#four-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+      };
+    }
+
+// page 4 から page 5 へ
+
+    if (page.matches('#four-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page5.html');
+      };
+
+    } else if (page.matches('#five-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+      };
+    }
+
+// page 5 から page 6 へ
+
+    if (page.matches('#five-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page6.html');
+      };
+
+    } else if (page.matches('#six-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+      };
+    }
+
+// page 6 から page 7 へ
+
+    if (page.matches('#six-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page7.html');
+      };
+
+    } else if (page.matches('#seven-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+      };
+    }
+
+// page 7 から page 8 へ
+
+    if (page.matches('#seven-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page8.html');
+      };
+
+    } else if (page.matches('#eight-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').popPage();
+      };
+    }
+
+// page 8 から page 9 へ
+// トップページへ戻る
+
+    if (page.matches('#eight-page')) {
+      page.querySelector('#push-button').onclick = function() {
+        document.querySelector('#navigator').pushPage('page9.html');
+      };
+
+    } else if (page.matches('#nine-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+        document.querySelector('#navigator').replacePage("page1.html");
+      };
+    }
+
+// トップページから面白い覚え札へ
+
+    if (page.matches('#first-page')) {
+      page.querySelector('#push-button2').onclick = function() {
+      document.querySelector('#navigator').pushPage('pageZ.html');
+      };
+
+    } else if (page.matches('#Z-page')) {
+      page.querySelector('#pop-button').onclick = function() {
+      document.querySelector('#navigator').popPage();
+      };
+    }
+
+
+  });
+
+  if (ons.platform.isIPhoneX()) {
+    document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+    document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+  }
+
+   
+
+  </script>
+</head>
+<body>
+  <ons-navigator id="navigator" page="page1.html"></ons-navigator>
+
+<!-- トップページ（page 1)の画面 -->
+
+  <ons-template id="page1.html">
+    <ons-page id="first-page">
+      <ons-toolbar>
+        <div class="center">トップページ</div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <p>百人一首<br>Quizアプリ</p>
+        <img src="img/無題.png"><br>
+        <ons-button id="push-button">一字決まり札を覚えよう！</ons-button><br>
+        <ons-button id="push-button2"> 面白い覚え札を覚えよう！ </ons-button><br>
+        <ons-button id="push-button3">ランダムクイズへ挑戦！！</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+<!-- page 2 の画面 -->
+
+  <ons-template id="page2.html">
+    <ons-page id="second-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>トップページ</ons-back-button></div>
+        <div class="center">Page 2</div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <p>一字決まりとは？？</p>
+        <h3>一字決まりとは、上の句の1文字目を聞けば、下の句を特定することができる札です。<br>百首ある中で、一字決まりは七首存在します。覚え方は、七首の上の句の一文字目を合わせて<br><span>むすめふさほせ</span>で覚えよう！</h3>
+        <h1>では次へ！！</h1>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+
+<!-- page 3の画面 -->
+
+  <ons-template id="page3.html">
+    <ons-page id="third-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 2</ons-back-button></div>
+        <div class="center">page 3</div>
+      </ons-toolbar>
+
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/むらさめの.PNG"><br>
+        <h1>寂蓮法師<br>じゃくれんほうし</h1>
+        <h2>村雨の 露もまだ干ぬ 槇の葉に 霧立ちのぼる 秋の夕暮れ</h2><br>
+        <h4><span>上の句</span><span class="spancolor"> むらさめの つゆもまだひぬ まきのはに</span><br>
+        <span>下の句</span><span class="spancolor"> きりたちのぼる あきのゆうぐれ</span></h4><br>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+<!-- page 4の画面 -->
+
+  <ons-template id="page4.html">
+    <ons-page id="four-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 4</ons-back-button></div>
+        <div class="center">page 4</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/すみのえの.PNG"><br>
+        <h1>藤原敏行朝臣<br>ふじわらのとしゆきあそん</h1>
+        <h2>住の江の 岸に寄る波 よるさへや 夢の通ひ路 人目よくらむ</h2><br>
+        <h4><span>上の句</span><span class="spancolor"> すみのえの きしによるなみ よるさへや</span><br>
+        <span>下の句</span><span class="spancolor"> ゆめのかよいじ ひとめよくらん</span></h4><br>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+<!-- page 5の画面 -->
+
+  <ons-template id="page5.html">
+    <ons-page id="five-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 5</ons-back-button></div>
+        <div class="center">page 5</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/めぐりあひて.PNG"><br>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <!-- page 6の画面 -->
+
+  <ons-template id="page6.html">
+    <ons-page id="six-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 6</ons-back-button></div>
+        <div class="center">page 6</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/ふくからに.PNG"><br>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <!-- page 7の画面 -->
+
+  <ons-template id="page7.html">
+    <ons-page id="seven-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 7</ons-back-button></div>
+        <div class="center">page 7</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/さびしさに.PNG"><br>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <!-- page 8の画面 -->
+
+  <ons-template id="page8.html">
+    <ons-page id="eight-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 8</ons-back-button></div>
+        <div class="center">page 8</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/さびしさに.PNG"><br>
+        <ons-button id="push-button">次へ</ons-button>
+        <ons-button id="pop-button">戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <!-- page 8の画面 -->
+
+  <ons-template id="page9.html">
+    <ons-page id="nine-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>page 9</ons-back-button></div>
+        <div class="center">page 9</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <img class="fuda" src="img/さびしさに.PNG"><br>
+        <ons-button id="pop-button">トップページへ戻る</ons-button>
+      </div>
+    </ons-page>
+  </ons-template>
+
+  <!-- 面白覚え札画面へ -->
+
+  <ons-template id="pageZ.html">
+    <ons-page id="Z-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>トップページ</ons-back-button></div>
+        <div class="center">ランダムクイズ</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+        <p>クイズページ</p>
+        <ons-button id="pop-button">Pop page</ons-button>
+      </div>
+    </ons-page>
+  </ons-template> 
+
+  <!-- クイズページの画面 -->
+
+  <ons-template id="pageA.html">
+    <ons-page id="A-page">
+      <ons-toolbar>
+        <div class="left"><ons-back-button>トップページ</ons-back-button></div>
+        <div class="center">ランダムクイズ</div>
+      </ons-toolbar>
+      <div class="content" style="text-align: center">
+
+        <section class="container">
+          <p class="p1" id="question"></p>
+          <ul id="choices"></ul>
+          <div id="btn" class="disabled">next</div>
+    
+          <section id="result" class="hidden">
+            <h1>結果は？？</h1>
+            <p class="p2"></p>
+            <br>
+    
+            <ons-button id="pop-button">トップページへ戻る</ons-button>
+          </section>
+        </section>
+      </div>
+    </ons-page>
+  </ons-template>
+
+
+
+</body>
+</html>

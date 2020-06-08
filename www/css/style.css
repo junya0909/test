@@ -1,0 +1,188 @@
+
+/* Onsen_UIでのcssコード */
+p {
+  font-size: 70px;
+  margin-top: 100px;
+  font-family: MS ゴシック, monospace;
+  background: #9400D3;
+  color: orange;
+}
+
+.content h3 {
+  font-size: 20px;
+  padding-top: 20px;
+  
+}
+
+#push-button {
+  margin-top: 30px;
+  color: white;
+  font-size: 20px;
+}
+#push-button2 {
+  margin-top: 50px;
+  font-size: 20px;
+}
+
+#push-button3 {
+  margin-top: 50px;
+  font-size: 20px;
+}
+
+span {
+  color: red;
+  font-size: 30px;
+}
+
+#pop-button {
+  margin-top: 30px;
+  color: white;
+}
+
+#pop-button2 {
+  margin-top: 50px;
+}
+
+.page__content{
+  background-color: rgb(255, 216, 236);
+}
+
+img {
+  width: 200px;
+  height: 200px;
+  padding-top: 20px;
+}
+
+.fuda {
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.spancolor {
+  color: black;
+  padding: 0;
+  font-size: 25px;
+}
+
+
+
+
+
+
+/* クイズ画面のCSSコード */
+
+#question {
+  margin-bottom: 16px;
+  font-weight: bold;
+}
+
+#choices {
+  list-style: none;
+  padding: 0px;
+  margin-bottom: 16px;
+}
+
+#choices > li {
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+#choices > li:hover {
+  background: #f8f8f8;
+}
+
+#btn.disabled {
+  background: #cccccc;
+  box-shadow: 0 4px 0 #bbbbbb;
+  opacity: 0.7;
+}
+
+#choices > li.correct {
+  background: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+  font-weight: bold;
+}
+
+#choices > li.wrong {
+  background: #f8d8da;
+  border-color: #f5c6cb;
+  color: #721;
+  font-weight: bold;
+}
+
+#choices > li.correct::after {
+  content: "〇";
+}
+
+#choices > li.wrong::after {
+  content: "✖";
+}
+
+.container {
+  width: 350px;
+  margin: 8px auto;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 16px;
+  position: relative;
+}
+
+#result > p {
+  font-size: 24px;
+}
+
+#btn, #result > a {
+  background: #3498db;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 4px 0 #2880b9;
+}
+
+#result > a {
+  display: block;
+  text-decoration: none;
+}
+
+#result {
+  position:absolute;
+  width: 300px;
+  background: #d3ffd3;
+  padding: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 4px;
+  text-align: center;
+  transition: 0.4s;
+}
+
+#result.hidden {
+  transform:translateY(-1000px);
+} 
+
+.p1  {
+  color: #2880b9;
+  font-size: 28px;
+  margin: auto;
+  background: #d8eaf6;
+}
+
+.p2 {
+  color:black;
+  background: rgb(255, 216, 236);;
+}
+
+
+
+
+
